@@ -15,6 +15,12 @@
   --global-html-color: var(--global-color-front);
   --global-html-backgroundColor: var(--global-color-back);
   --global-selection-backgroundColor: var(--global-color-front);
+
+  --c-robot-animation-duration: 0.75s;
+  --c-robot-animation-timing-function: ease-in-out;
+  --c-robot-animation-iteration-count: infinite;
+  --c-robot-animation-direction: alternate;
+
 }
 
 /*------------------------------------*\
@@ -34,6 +40,8 @@ html {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--global-color-back);
+  color: var(--global-color-front);
 }
 
 *,
@@ -43,6 +51,12 @@ html {
 }
 
 body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+
 }
 
 /*
@@ -133,16 +147,92 @@ body {
 */
 
 .c-robot {
+  /*display: block;*/
+  fill: white;
+  width: 100%;
+  max-width: 300px;
 }
 
 .c-robot__shadow {
+  fill: #000;
+  opacity: 0.2;
 }
 
+@keyframes shadowPulse{
+  100% {
+    transform: scale(0.75);
+  }
+}
+@keyframes robotHover{
+  0%{
+    transform: translateY(2.5%);
+  }
+  100% {
+    transform: translateY(-2.5%);
+  }
+}
+
+.c-robot--css-anim #Shadow{
+  transform-origin: 50% 100%;
+  animation-name: shadowPulse;
+  animation-duration: var(--c-robot-animation-duration);
+  animation-timing-function: var(--c-robot-animation-timing-function);
+  animation-iteration-count: var(--c-robot-animation-iteration-count);
+  animation-direction: var(--c-robot-animation-direction);
+}
+.c-robot--css-anim #Robot_master{
+  animation-name: robotHover;
+  animation-duration: var(--c-robot-animation-duration);
+  animation-timing-function: var(--c-robot-animation-timing-function);
+  animation-iteration-count: var(--c-robot-animation-iteration-count);
+  animation-direction: var(--c-robot-animation-direction);
+}
 
 /*
     Component: Controls
 */
+.c-controls{
+  display: flex;
+  align-items: center;
+}
 
+.c-controls__list{
+  display: flex;
+  align-items: center;
+  gap:.5rem;
+  font-size: 14px;
+}
+.c-controls__button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 15px;
+}
+.c-controls__button--pause{
+  padding: 4px;
+  border-radius: 50%;
+}
+.c-controls__button:hover {
+  background-color: #394b58;
+}
+.c-controls__list .c-controls__radio:hover+.c-controls__button,
+.c-controls__list .c-controls__radio:active+.c-controls__button,
+.c-controls__list .c-controls__radio:focus+.c-controls__button {
+  background-color: #394b58;
+}
+
+.c-play-icon {
+  width: 1rem;
+  height: 1rem;
+  fill: white;
+}
+
+.c-play-icon--play {
+  display: none;
+}
+
+.c-play-icon--pause {}
 /*------------------------------------*\
 #UTILITIES
 \*------------------------------------*/
